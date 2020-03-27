@@ -9,6 +9,7 @@ html, body{
     flex-direction: column;
     margin-left: 7%;
     margin-right: 7%;
+    overflow-y: hidden;
 }
 
 #mynetwork {
