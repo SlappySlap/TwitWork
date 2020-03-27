@@ -48,7 +48,7 @@ $("#saveScreen").click(function (e) {
         .then(function (dataUrl) {
             var link = document.createElement('a');
             // TODO ajouter un nouveau nom de fichier
-            link.download = 'my-image-name.jpeg';
+            link.download = 'TwitWork-Save.jpeg';
             link.href = dataUrl;
             link.click();
         });
