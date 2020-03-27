@@ -1,10 +1,10 @@
-const fs = require('fs')
-var $ = require("jquery")
-var vis = require("vis-network")
-var Twit = require('twit')
-var htmlToImage = require('html-to-image')
-const Store = require('electron-store')
-const store = new Store()
+const fs = require('fs');
+var $ = require("jquery");
+var vis = require("vis-network");
+var Twit = require('twit');
+var htmlToImage = require('html-to-image');
+const Store = require('electron-store');
+const store = new Store();
   
 // Lib menu
 const mainNetwork = require('./lib/network'); 
@@ -34,7 +34,7 @@ $("#clear").click(function(e){
 	catch (err) {
 		console.error(error);
 	}	
-})
+});
 
 $("#saveScreen").click(function(e){
 	var node = document.getElementById('mynetwork');
@@ -46,7 +46,7 @@ $("#saveScreen").click(function(e){
 			link.href = dataUrl;
 			link.click();
 	  }); 
-})
+});
 // Increment edge
 let t = 1;
 let a = 1; 
@@ -74,7 +74,7 @@ $("#startStream").click(function(e){
 	$("#stopStream").show();
 
 	// Parse twitter stream
-	var stream = Twitter.stream('statuses/filter', { track: $('#searchBox').val() }) 
+	var stream = Twitter.stream('statuses/filter', { track: $('#searchBox').val() });
 	stream.on('tweet', function (tweet) {
  	  //console.log(tweet);
  	  // TODO voir pour switch/case la var tweet
@@ -111,7 +111,7 @@ $("#startStream").click(function(e){
 			};					
 			mainNetwork.add_twitted(optionTwitted);  
 	  }
-	}) 
+	});
 	// Stop stream
 	$("#stopStream").click(function(e){
 		$("#startStream").show();
@@ -122,18 +122,18 @@ $("#startStream").click(function(e){
 
 
  		// Start vis.Network et on filtre par statue du tweet --> retweeted, quoted, tweet 
-		const nodeFilterSelector = document.getElementsByName('edgesFilter')
+		const nodeFilterSelector = document.getElementsByName('edgesFilter');
 		var nodes = new vis.DataSet([]);
 		var edges = new vis.DataSet([]);
 
 
     function startNetwork(data) {
-      const container = document.getElementById('mynetwork')
+      const container = document.getElementById('mynetwork');
       const options = {
 					"edges": {
 						"smooth": true
 					}    
-      }
+      };
       return new vis.Network(container, data, options)
     }
  
@@ -141,21 +141,21 @@ $("#startStream").click(function(e){
       retweeted: true,
       quoted: true,
       tweet: true
-    }
+    };
 
     const nodesFilter = (edge) => {
       return nodeFilterValue[edge.relation]
-    }
+    };
 
-    const nodesView = new vis.DataView(nodes, { filter: nodesFilter })
+    const nodesView = new vis.DataView(nodes, { filter: nodesFilter });
     
     nodeFilterSelector.forEach(filter => filter.addEventListener('change', (e) => {
-      const { value, checked } = e.target
-      nodeFilterValue[value] = checked
+      const { value, checked } = e.target;
+      nodeFilterValue[value] = checked;
       nodesView.refresh()
-    }))
+    }));
 
-    var network = startNetwork({ nodes: nodesView, edges: edges }) // Gooooo!! 
+    var network = startNetwork({ nodes: nodesView, edges: edges }); // Gooooo!!
 
     network.setOptions({physics:{stabilization:{fit: false}}});
     network.stabilize();
@@ -167,7 +167,7 @@ $("#startStream").click(function(e){
 						$("#returnUrlHref").html(data.html);
 			 
 					})
-				})  
+				});
 				// Open modal on double click
 				$(function() {
 					var modal = UIkit.modal("#detailNode");
