@@ -11,6 +11,7 @@ const mainNetwork = require('./lib/network');
 const menu = require('./lib/menu'); 
 menu.mainMenu(store);
 
+// Show api key modal if not set
 if (store.get('consumer_key')) { 
 	var Twitter = new Twit({
     consumer_key: store.get('consumer_key'),
@@ -27,15 +28,21 @@ if (store.get('consumer_key')) {
 	});
 }
 
-$("#clear").click(function(e){
+//Clear all node
+function clear(){
 	try {
 		nodes.getIds().forEach(tweetId => nodes.remove({id: tweetId}));
 	}
 	catch (err) {
 		console.error(error);
-	}	
+	}
+}
+
+$("#clear").click(function(e){
+	clear();
 });
 
+//Save Screen
 $("#saveScreen").click(function(e){
 	var node = document.getElementById('mynetwork');
 	htmlToImage.toJpeg(node, {backgroundColor:'white', quality: 1 })
@@ -47,18 +54,20 @@ $("#saveScreen").click(function(e){
 			link.click();
 	  }); 
 });
+
 // Increment edge
 let t = 1;
 let a = 1; 
 
 $("#startStream").click(function(e){
+	clear();
 	// TODO Ajouter un node à chaque mot separés par une virgulle
-	result = $('#searchBox').val().split(","); 	 
+	let result = $('#searchBox').val().split(",");
 	if (result.length > 1) {
 		result.forEach((item, index) => {
 			nodes.add({
-				 id: index,
-				 label: item
+				 id: index+1,
+				 label: item,
 			});
 		})
 	} else {
